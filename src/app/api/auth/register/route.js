@@ -11,10 +11,10 @@ export async function POST(request) {
   try {
     // Obter os dados do corpo da requisição
     const userData = await request.json();
-    const { password, email, firstName, lastName, role } = userData;
+    const { password, confirmPassword, email, firstName, lastName, role } = userData;
 
     // Validar se os campos obrigatórios estão presentes
-    if (!password || !email || !firstName || !lastName) {
+    if (!password || !confirmPassword || !email || !firstName || !lastName) {
       return NextResponse.json({ error: "Todos os campos são obrigatórios" }, { status: 400 });
     }
 
@@ -32,6 +32,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         password,
+        confirmPassword,
         email,
         firstName,
         lastName,
@@ -45,7 +46,7 @@ export async function POST(request) {
     // Se a API retornar um erro, repassar para o cliente
     if (!response.ok) {
       return NextResponse.json(
-        { error: data.error || "Falha no cadastro" },
+        { error: data.error || "Falha no cadastro next" },
         { status: response.status }
       );
     }

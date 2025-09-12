@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Signup() {
   const [formData, setFormData] = useState({
     password: "",
+    confirmPassword: "",
     email: "",
     firstName: "",
     lastName: "",
@@ -36,20 +37,15 @@ export default function Signup() {
   const validateForm = () => {
     const newErrors = {};
 
-    // Validação de nome de usuário
-    if (!formData.username || formData.username.length < 3) {
-      newErrors.username = "Nome de usuário deve ter pelo menos 3 caracteres";
-    }
-
     // Validação de senha
     if (!formData.password || formData.password.length < 4) {
       newErrors.password = "A senha deve ter pelo menos 4 caracteres";
     }
 
     // Validação de confirmação de senha
-    // if (formData.password !== formData.confirmPassword) {
-    //   newErrors.confirmPassword = "As senhas não correspondem";
-    // }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "As senhas não correspondem";
+    }
 
     // Validação de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -75,9 +71,9 @@ export default function Signup() {
     e.preventDefault();
 
     // Validar formulário antes de enviar
-    // if (!validateForm()) {
-    //   return;
-    // }
+    if (!validateForm()) {
+      return;
+    }
 
     signup(formData);
   };
@@ -173,7 +169,7 @@ export default function Signup() {
             </div>
 
             {/* Confirmação de senha */}
-            {/* <div>
+            <div>
               <label
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -194,7 +190,7 @@ export default function Signup() {
               {errors.confirmPassword && (
                 <p className="mt-1 text-sm text-red-500">{errors.confirmPassword}</p>
               )}
-            </div> */}
+            </div>
 
             {/* Campo role (escondido, com valor padrão) */}
             <input type="hidden" name="role" value={formData.role} />
