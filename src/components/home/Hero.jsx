@@ -4,14 +4,14 @@ import SearchBar from "../search/SearchBar";
 
 const Hero = () => {
   return (
-    <div className="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900  z-50">
+    <div className="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900  ">
       {/* Elementos decorativos para dar efeitos visuais ao gradiente */}
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-blue-400 opacity-20"></div>
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.15),transparent_50%)]"></div>
 
       {/* Padrão decorativo */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-blue-300"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-blue-300"></div>xwx
         <div className="absolute bottom-32 right-10 w-32 h-32 rounded-full bg-purple-400"></div>
         <div className="absolute top-1/3 right-1/4 w-16 h-16 rounded-full bg-indigo-300"></div>
       </div>
