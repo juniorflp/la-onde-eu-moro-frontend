@@ -22,7 +22,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    login(formData.email, formData.password);
+    await login(formData.email, formData.password);
   };
 
   return (

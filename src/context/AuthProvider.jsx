@@ -1,9 +1,9 @@
 "use client";
 
 import LoadingScreen from "@/components/ui/LoadingScreen";
-import { setAuthToken } from "@/utils/api";
+import api, { setAuthToken } from "@/utils/api";
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
 
@@ -16,30 +16,20 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
 
-  const fetchCurrentUser = async () => {
+  const fetchCurrentUser = useCallback(async () => {
     try {
       const token = localStorage.getItem("authToken");
 
       if (!token) return null;
 
-      const response = await fetch("/api/auth/me", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.get(`api/auth/v1/me`);
 
-      if (!response.ok) {
-        throw new Error("Falha ao buscar dados do usuário");
-      }
-
-      const userData = await response.json();
-      return userData;
+      return response.data;
     } catch (error) {
       console.error("Erro ao buscar dados do usuário:", error);
       return null;
     }
-  };
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -67,25 +57,17 @@ const AuthProvider = ({ children }) => {
         }
       });
     }
-  }, []);
+  }, [fetchCurrentUser]);
 
   const login = async (email, password) => {
     setLoadingLogin(true);
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await api.post(`api/auth/v1/login`, {
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Falha na autenticação");
-      }
-
-      const data = await response.json();
+      const data = response.data;
 
       if (!data.token) {
         throw new Error("Token não recebido do servidor");
@@ -108,6 +90,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       setLoadingLogin(false);
       console.error("Erro de login:", error);
+
       return { success: false, error: error.message };
     } finally {
       setLoadingLogin(false);
@@ -126,25 +109,15 @@ const AuthProvider = ({ children }) => {
   const signup = async (userData) => {
     setLoadingSignup(true);
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await api.post(`api/auth/v1/register`, userData);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Falha no cadastro");
-      }
-
-      const data = await response.json();
+      const data = response.data;
 
       return login(userData.email, userData.password);
     } catch (error) {
       setLoadingSignup(false);
       console.error("Erro de cadastro:", error);
+
       return { success: false, error: error.message };
     } finally {
       setLoadingSignup(false);

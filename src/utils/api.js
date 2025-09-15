@@ -1,10 +1,14 @@
 "use client";
 
 import axios from "axios";
+import { toast } from "react-toastify";
 
 // Criação da instância base do Axios
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api",
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_API_URL_PROD
+      : process.env.NEXT_PUBLIC_API_URL_DEV || "http://localhost:8080",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -23,6 +27,8 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    toast.error(error.response.data.message || "Ocorreu um erro na comunicação com o servidor.");
+
     return Promise.reject(error);
   }
 );
@@ -37,6 +43,7 @@ api.interceptors.response.use(
     if (error.response) {
       // O servidor respondeu com um status de erro
       console.error("Erro na resposta:", error.response.status, error.response.data);
+      toast.error(error.response.data.message || "Ocorreu um erro na comunicação com o servidor.");
 
       // Tratamento específico para erros comuns
       if (error.response.status === 401) {
