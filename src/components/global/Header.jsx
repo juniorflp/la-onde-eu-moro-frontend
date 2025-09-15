@@ -1,11 +1,34 @@
 "use client";
 
 import { useAuth } from "@/context/AuthProvider";
+import { getCookie } from "cookies-next";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Header = () => {
-  const { logout } = useAuth();
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const { logout, user, initializing, isAuthenticated } = useAuth();
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setUserData(null);
+      return;
+    }
+
+    if (user) {
+      setUserData(user);
+    } else {
+      const userDataFromCookie = getCookie("userData");
+      if (userDataFromCookie) {
+        try {
+          setUserData(JSON.parse(String(userDataFromCookie)));
+        } catch (e) {
+          console.error("Error parsing user data:", e);
+        }
+      }
+    }
+  }, [user, isAuthenticated]);
+
   return (
     <header className="fixed top-0 left-0 w-full py-4 px-6 flex items-center justify-between bg-white shadow-sm z-50">
       <div className="flex items-center">
@@ -19,7 +42,9 @@ const Header = () => {
           <>
             <span className="text-gray-700">Olá, {userData.firstName || userData.username}</span>
             <button
-              onClick={logout}
+              onClick={() => {
+                logout();
+              }}
               className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
             >
               Sair

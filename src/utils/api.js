@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { toast } from "react-toastify";
 
 // Criação da instância base do Axios
@@ -19,8 +20,8 @@ const api = axios.create({
 // Interceptor de requisições - adiciona o token de autenticação automaticamente
 api.interceptors.request.use(
   (config) => {
-    // Adiciona o token de autenticação do localStorage (se existir)
-    const token = localStorage.getItem("authToken");
+    // Adiciona o token de autenticação do cookie (se existir)
+    const token = getCookie("authToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -48,8 +49,8 @@ api.interceptors.response.use(
       // Tratamento específico para erros comuns
       if (error.response.status === 401) {
         // Token inválido ou expirado
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("userData");
+        deleteCookie("authToken");
+        deleteCookie("userData");
         // Redirecionar para a página de login se não estiver na página de login
         if (typeof window !== "undefined" && !window.location.pathname.includes("/login")) {
           window.location.href = "/login";
@@ -75,10 +76,12 @@ api.interceptors.response.use(
  */
 export const setAuthToken = (token) => {
   if (token) {
-    localStorage.setItem("authToken", token);
+    // Opções do cookie: 30 dias de expiração, disponível em todas as páginas
+    const cookieOptions = { maxAge: 30 * 24 * 60 * 60, path: "/" };
+    setCookie("authToken", token, cookieOptions);
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
-    localStorage.removeItem("authToken");
+    deleteCookie("authToken");
     delete api.defaults.headers.common["Authorization"];
   }
 };

@@ -2,6 +2,7 @@
 
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import api, { setAuthToken } from "@/utils/api";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
@@ -14,11 +15,15 @@ const AuthProvider = ({ children }) => {
   const [loadingLogin, setLoadingLogin] = useState(false);
   const [loadingSignup, setLoadingSignup] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const fetchCurrentUser = useCallback(async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      // Check if we're on the server
+      if (typeof window === "undefined") return null;
+
+      const token = getCookie("authToken");
 
       if (!token) return null;
 
@@ -27,37 +32,53 @@ const AuthProvider = ({ children }) => {
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar dados do usuário:", error);
+      setLoading(false);
       return null;
+    } finally {
+      setLoading(false);
     }
   }, []);
 
+  console.log("loading", loading);
+
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    const userData = localStorage.getItem("userData");
+    // Ensure we're running on client side
+    if (typeof window === "undefined") return;
+
+    const token = getCookie("authToken");
+    const userData = getCookie("userData");
 
     if (token) {
       setAuthToken(token);
 
       if (userData) {
-        setUser(JSON.parse(userData));
-        setIsAuthenticated(true);
+        try {
+          setUser(JSON.parse(String(userData)));
+          setIsAuthenticated(true);
+        } catch (e) {
+          console.error("Erro ao parsear userData:", e);
+        }
       }
 
       fetchCurrentUser().then((currentUser) => {
         if (currentUser) {
           setUser(currentUser);
-          localStorage.setItem("userData", JSON.stringify(currentUser));
+          // Opções do cookie: 30 dias de expiração, disponível em todas as páginas
+          const cookieOptions = { maxAge: 30 * 24 * 60 * 60, path: "/" };
+          setCookie("userData", JSON.stringify(currentUser), cookieOptions);
           setIsAuthenticated(true);
         } else {
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("userData");
+          deleteCookie("authToken", { path: "/" });
+          deleteCookie("userData", { path: "/" });
           setAuthToken(null);
           setUser(null);
           setIsAuthenticated(false);
         }
       });
+    } else {
+      setLoading(false);
     }
-  }, [fetchCurrentUser]);
+  }, []);
 
   const login = async (email, password) => {
     setLoadingLogin(true);
@@ -73,14 +94,16 @@ const AuthProvider = ({ children }) => {
         throw new Error("Token não recebido do servidor");
       }
 
-      localStorage.setItem("authToken", data.token);
+      // Opções do cookie: 30 dias de expiração, disponível em todas as páginas
+      const cookieOptions = { maxAge: 30 * 24 * 60 * 60, path: "/" };
+      setCookie("authToken", data.token, cookieOptions);
       setAuthToken(data.token);
 
       const userData = await fetchCurrentUser();
 
       if (userData) {
         setUser(userData);
-        localStorage.setItem("userData", JSON.stringify(userData));
+        setCookie("userData", JSON.stringify(userData), cookieOptions);
         setIsAuthenticated(true);
       }
 
@@ -98,8 +121,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userData");
+    deleteCookie("authToken", { path: "/" });
+    deleteCookie("userData", { path: "/" });
     setAuthToken(null);
     setUser(null);
     setIsAuthenticated(false);
@@ -129,7 +152,9 @@ const AuthProvider = ({ children }) => {
 
     if (userData) {
       setUser(userData);
-      localStorage.setItem("userData", JSON.stringify(userData));
+      // Opções do cookie: 30 dias de expiração, disponível em todas as páginas
+      const cookieOptions = { maxAge: 30 * 24 * 60 * 60, path: "/" };
+      setCookie("userData", JSON.stringify(userData), cookieOptions);
       setIsAuthenticated(true);
       return true;
     }
@@ -149,13 +174,11 @@ const AuthProvider = ({ children }) => {
     refreshUserData,
   };
 
-  const token = localStorage.getItem("authToken");
-
-  if (!isAuthenticated && token) {
-    return <LoadingScreen />;
-  }
-
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>
+      {loading ? <LoadingScreen /> : children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
