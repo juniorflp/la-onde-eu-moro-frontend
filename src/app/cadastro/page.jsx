@@ -11,7 +11,7 @@ export default function Signup() {
     email: "",
     firstName: "",
     lastName: "",
-    role: "ROLE_USER", // Valor padrão
+    role: "ROLE_UNVERIFIED", // Valor padrão
   });
 
   const [errors, setErrors] = useState({});
