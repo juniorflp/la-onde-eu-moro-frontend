@@ -10,6 +10,21 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: "#009C60",
+          dark: "#008050",
+          light: "#00B670",
+          50: "#E6F7EF",
+          100: "#CCEFE0",
+          200: "#99DFC1",
+          300: "#66CFA1",
+          400: "#33BF82",
+          500: "#009C60",
+          600: "#007D4D",
+          700: "#005E3A",
+          800: "#003E27",
+          900: "#001F13",
+        },
       },
       animation: {
         "spin-slow": "spin 3s linear infinite reverse",

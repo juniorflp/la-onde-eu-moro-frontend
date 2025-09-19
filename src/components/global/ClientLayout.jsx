@@ -13,7 +13,7 @@ export default function ClientLayout({ children }) {
     <AuthProvider>
       <ToastContainer />
       <Header />
-      <main className="pt-16">{children}</main>
+      <main>{children}</main>
     </AuthProvider>
   );
 }
