@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Button from "../global/Button";
+import ButtonSquare from "../global/ButtonSquare";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
@@ -13,6 +14,7 @@ export default function SearchBar() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [placeDetails, setPlaceDetails] = useState(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
+  const [typeSearch, setTypeSearch] = useState("condominium"); // "condominium", "city"
 
   const handleSearch = async () => {
     if (!query.trim()) return;
@@ -105,21 +107,30 @@ export default function SearchBar() {
   const showResults = results.length > 0 || error || loadingDetails || placeDetails;
 
   return (
-    <div
-      className="w-full max-w-[577px] relative bg-white p-2 rounded-full "
-      id="search-bar-container"
-    >
-      <div className="flex flex-col md:flex-row gap-3 relative z-[999] bg-white rounded-full ">
+    <div className="w-full relative bg-white rounded-2xl  pb-6" id="search-bar-container">
+      <div className="flex items-center w-full border-b border-gray mb-6 ">
+        <ButtonSquare
+          className="rounded-tl-2xl"
+          onClick={() => setTypeSearch("condominium")}
+          selected={typeSearch === "condominium"}
+        >
+          Condomínios
+        </ButtonSquare>
+        <ButtonSquare onClick={() => setTypeSearch("city")} selected={typeSearch === "city"}>
+          Bairros/ Cidades
+        </ButtonSquare>
+      </div>
+      <div className="flex flex-col md:flex-row gap-3 mx-6 relative z-[999] bg-gray p-2 rounded-full ">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Busque pela cidade, bairro ou nome do condomínio"
-          className="flex-1 rounded-full px-7 "
+          className="flex-1 rounded-full px-7 bg-gray outline-none focus:ring-2 focus:ring-secondary transition"
         />
         <div className="flex gap-2">
-          <Button onClick={handleSearch} isLoading={loading} variant="solid" className="h-14">
+          <Button onClick={handleSearch} isLoading={loading} variant="orange" className="h-14">
             Buscar
           </Button>
           {/* <button
@@ -136,14 +147,14 @@ export default function SearchBar() {
       <div
         id="search-results-container"
         className={twMerge(
-          `absolute max-w-2xl w-full top-[0px] left-0 right-0 transition-all duration-300 ease-in-out`,
+          `absolute max-w-2xl w-full top-[194px] left-0 right-0 transition-all duration-300 ease-in-out`,
           showResults
-            ? "z-[1] rounded-b-xl rounded-t-[40px] shadow-xl  translate-y-0 max-h-[80vh] overflow-y-auto"
+            ? "z-[1] rounded-2xl shadow-xl  translate-y-0 max-h-[80vh] overflow-y-auto"
             : "max-h-0 opacity-0  overflow-hidden pointer-events-none"
         )}
       >
         {results.length > 0 && (
-          <div className="bg-white  w-full pt-20 p-6 rounded-b-xl rounded-t-[40px]">
+          <div className="bg-white  w-full  p-6 rounded-b-xl ">
             <h3 className="font-semibold text-lg mb-3 text-gray-800">Resultados:</h3>
             <ul className="border rounded-lg divide-y">
               {results.map((result) => {

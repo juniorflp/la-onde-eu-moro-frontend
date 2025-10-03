@@ -25,6 +25,12 @@ module.exports = {
           800: "#003E27",
           900: "#001F13",
         },
+        secondary: {
+          DEFAULT: "#FD6E36",
+          dark: "#E65C00",
+          light: "#FF7519",
+        },
+        gray: "#F6F6F6",
       },
       animation: {
         "spin-slow": "spin 3s linear infinite reverse",

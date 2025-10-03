@@ -12,6 +12,7 @@ function Button(
   // Variant-specific styles
   const variantStyles = {
     solid: "bg-primary hover:bg-primary-dark text-white",
+    orange: "bg-secondary hover:bg-secondary-dark text-white",
     white: "bg-white hover:bg-gray-50 text-primary border border-gray-200",
     outline: "bg-transparent border border-primary text-primary hover:bg-primary/5",
     "outline-white": "bg-transparent border border-white text-white hover:bg-white/10",
