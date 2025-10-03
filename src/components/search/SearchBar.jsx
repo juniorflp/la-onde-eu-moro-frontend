@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Button from "../global/Button";
 import ButtonSquare from "../global/ButtonSquare";
+import SearchIcon from "../icons/SearchIcon";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
@@ -130,7 +131,13 @@ export default function SearchBar() {
           className="flex-1 rounded-full px-7 bg-gray outline-none focus:ring-2 focus:ring-secondary transition"
         />
         <div className="flex gap-2">
-          <Button onClick={handleSearch} isLoading={loading} variant="orange" className="h-14">
+          <Button
+            onClick={handleSearch}
+            isLoading={loading}
+            icon={<SearchIcon />}
+            variant="orange"
+            className="h-14"
+          >
             Buscar
           </Button>
           {/* <button

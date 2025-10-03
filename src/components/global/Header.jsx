@@ -96,7 +96,7 @@ const Header = () => {
                 /* Menu expandido */
                 <motion.div
                   key="expanded-menu"
-                  className="flex items-center w-full max-w-[614px] border-b border-gray"
+                  className="flex items-center w-full max-w-[614px] border-b border-gray bg-menu-bg backdrop-blur-md"
                   initial={{ x: 300, scale: 0.8, opacity: 0 }}
                   animate={{
                     x: 0,
@@ -166,7 +166,7 @@ const Header = () => {
                       type: "spring",
                       stiffness: 500,
                       damping: 25,
-                      delay: 0.1,
+                      delay: 0.0,
                     },
                   }}
                   exit={{ scale: 0, opacity: 0 }}

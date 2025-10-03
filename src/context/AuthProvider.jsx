@@ -176,7 +176,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={contextValue}>
-      {loading ? <LoadingScreen /> : children}
+      {loading && getCookie("authToken") ? <LoadingScreen /> : children}
     </AuthContext.Provider>
   );
 };

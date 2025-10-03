@@ -2,7 +2,16 @@ import * as React from "react";
 import { twMerge } from "tailwind-merge";
 
 function Button(
-  { variant = "solid", className, isLoading = false, children, disabled, ...rest },
+  {
+    variant = "solid",
+    className,
+    isLoading = false,
+    children,
+    disabled,
+    icon: Icon = null,
+    iconClassName = "h-5 w-5",
+    ...rest
+  },
   ref
 ) {
   // Base styles for all button variants
@@ -29,8 +38,8 @@ function Button(
       disabled={isLoading || disabled}
       {...rest}
     >
-      {isLoading ? (
-        <span className="flex items-center justify-center">
+      <span className="flex items-center justify-center gap-2">
+        {isLoading ? (
           <svg
             className="animate-spin h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,10 +60,11 @@ function Button(
               d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
             />
           </svg>
-        </span>
-      ) : (
-        children
-      )}
+        ) : Icon ? (
+          <span className={`icon-container ${iconClassName}`}>{Icon}</span>
+        ) : null}
+        {children}
+      </span>
     </button>
   );
 }

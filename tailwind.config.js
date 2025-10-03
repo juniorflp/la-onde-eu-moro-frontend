@@ -35,6 +35,9 @@ module.exports = {
       animation: {
         "spin-slow": "spin 3s linear infinite reverse",
       },
+      backgroundColor: {
+        "menu-bg": "rgba(255, 255, 255, 0.4)",
+      },
     },
   },
   plugins: [],
