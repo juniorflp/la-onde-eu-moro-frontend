@@ -6,15 +6,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import HamburguerIcon from "../icons/HamburguerIcon";
+import LogoDark from "../icons/LogoDark";
 import LogoWhite from "../icons/LogoWhite";
 import ButtonSquare from "./ButtonSquare";
 import ContainerDefault from "./ContainerDefault";
 
-const Header = () => {
+const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
   const { logout, user, initializing, isAuthenticated } = useAuth();
   const [userData, setUserData] = useState(null);
   const [menuSelected, setMenuSelected] = useState(null); //search, about, login, signup
   const [showMenu, setShowMenu] = useState(true);
+  const [useDarkLogo, setUseDarkLogo] = useState(false);
   const initialScrollComplete = useRef(false);
 
   useEffect(() => {
@@ -49,16 +51,18 @@ const Header = () => {
 
       if (isAtTop) {
         setShowMenu(true);
+        setUseDarkLogo(false);
         initialScrollComplete.current = false;
         return;
       }
 
       if (!initialScrollComplete.current && currentScrollY > 100) {
         initialScrollComplete.current = true;
-
         setShowMenu(false);
+        setUseDarkLogo(true);
       } else if (showMenu && scrollingUp) {
         setShowMenu(false);
+        setUseDarkLogo(true);
       }
     };
 
@@ -70,11 +74,15 @@ const Header = () => {
   }, [showMenu]);
 
   return (
-    <header className="fixed top-0 left-0 w-full py-4 z-[9999] ">
+    <header
+      className={`fixed top-0 left-0 w-full py-4 z-[9999] ${
+        useDarkLogo ? "light-background" : "dark-background"
+      }`}
+    >
       <ContainerDefault className="flex items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="text-xl font-semibold">
-            <LogoWhite />
+            {forceDarkLogo || (useDarkLogo && !forceWhiteLogo) ? <LogoDark /> : <LogoWhite />}
           </Link>
         </div>
 
