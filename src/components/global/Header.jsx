@@ -133,7 +133,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
           {/* Menu para desktop */}
           <div className="hidden md:flex items-center absolute top-0 right-0 w-full max-w-[614px] h-full overflow-hidden">
             <div className="flex items-center w-full">
-              <div
+              <nav
                 key="expanded-menu"
                 className="flex items-center w-full max-w-[614px] border-b border-gray bg-white"
               >
@@ -149,7 +149,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
                 <ButtonSquare className="flex-1" isFilled>
                   Cadastrar
                 </ButtonSquare>
-              </div>
+              </nav>
             </div>
           </div>
         </ContainerDefault>
@@ -185,7 +185,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
           </svg>
         </button>
 
-        <div className="flex flex-col px-6">
+        <nav className="flex flex-col px-6">
           <Link
             href="#"
             className="py-5 border-b border-secondary text-lg font-medium text-gray-800"
@@ -210,7 +210,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
           >
             Cadastrar
           </Link>
-        </div>
+        </nav>
       </div>
     </>
   );
