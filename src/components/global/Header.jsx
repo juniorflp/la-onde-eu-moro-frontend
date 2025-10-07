@@ -8,6 +8,8 @@ import { twMerge } from "tailwind-merge";
 import HamburguerIcon from "../icons/HamburguerIcon";
 import LogoDark from "../icons/LogoDark";
 import LogoWhite from "../icons/LogoWhite";
+import SearchIcon from "../icons/SearchIcon";
+import Button from "./Button";
 import ButtonSquare from "./ButtonSquare";
 import ContainerDefault from "./ContainerDefault";
 
@@ -16,6 +18,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
   const [userData, setUserData] = useState(null);
   const [menuSelected, setMenuSelected] = useState(null); //search, about, login, signup
   const [hideBg, setHideBg] = useState(true);
+  const [hideSearch, setHideSearch] = useState(true);
   const [useDarkLogo, setUseDarkLogo] = useState(false);
   const initialScrollComplete = useRef(false);
 
@@ -64,6 +67,12 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
         setHideBg(false);
         setUseDarkLogo(true);
       }
+
+      if (currentScrollY > 600) {
+        setHideSearch(false);
+      } else {
+        setHideSearch(true);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -97,7 +106,18 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
           </div>
 
           {/* Menu hamburger para mobile */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-4">
+            <Button
+              onClick={() => {}}
+              icon={<SearchIcon />}
+              variant="orange"
+              className={twMerge(
+                "h-12 w-12 md:h-14 md:w-auto opacity-0 transform scale-0 transition-all duration-300",
+                !hideSearch && "opacity-100 scale-100"
+              )}
+            >
+              <span className="text-white hidden md:block">Buscar</span>
+            </Button>
             <button
               className={twMerge(
                 "flex justify-center items-center w-[44px] h-[44px] p-2 rounded-[12px] border border-[#DCDCE9] bg-white shadow-[0_1px_2px_0_rgba(16,40,34,0.05)]",
