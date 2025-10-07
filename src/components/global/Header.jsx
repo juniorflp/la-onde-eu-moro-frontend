@@ -99,48 +99,21 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
               key="expanded-menu"
               className="flex items-center w-full max-w-[614px] border-b border-gray bg-white"
             >
-              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("search")}>
+              <ButtonSquare className="flex-1" isFilled>
                 Buscar
               </ButtonSquare>
-              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("about")}>
+              <ButtonSquare className="flex-1" isFilled>
                 Sobre nós
               </ButtonSquare>
-              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("login")}>
+              <ButtonSquare className="flex-1" isFilled>
                 Fazer login
               </ButtonSquare>
-              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("signup")}>
+              <ButtonSquare className="flex-1" isFilled>
                 Cadastrar
               </ButtonSquare>
             </div>
           </div>
         </div>
-
-        {/* <div className="flex gap-4 items-center">
-          {userData ? (
-            <>
-              <span className="text-white">Olá, {userData.firstName || userData.username}</span>
-              <Button
-                variant="white"
-                onClick={() => {
-                  logout();
-                }}
-              >
-                Sair
-              </Button>
-            </>
-          ) : (
-            <>
-              <Link href="/login">
-                <Button variant="white">Fazer Login</Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button variant="outline-white">Cadastre-se</Button>
-              </Link>
-            </>
-
-          
-          )}
-        </div> */}
       </ContainerDefault>
     </header>
   );

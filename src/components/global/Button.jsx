@@ -16,7 +16,7 @@ function Button(
 ) {
   // Base styles for all button variants
   const baseStyles =
-    "rounded-full text-sm px-6 h-[48px] font-bold transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-90";
+    "rounded-full text-sm px-6 h-12 font-bold transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-90";
 
   // Variant-specific styles
   const variantStyles = {

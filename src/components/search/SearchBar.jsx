@@ -118,10 +118,10 @@ export default function SearchBar() {
           Condomínios
         </ButtonSquare>
         <ButtonSquare onClick={() => setTypeSearch("city")} selected={typeSearch === "city"}>
-          Bairros/ Cidades
+          Localização
         </ButtonSquare>
       </div>
-      <div className="flex flex-col md:flex-row gap-3 mx-6 relative z-[999] bg-gray p-2 rounded-full ">
+      <div className="flex gap-0 md:gap-3 mx-4 md:mx-6 relative z-[999] bg-gray p-2 rounded-full ">
         <input
           type="text"
           value={query}
@@ -136,9 +136,9 @@ export default function SearchBar() {
             isLoading={loading}
             icon={<SearchIcon />}
             variant="orange"
-            className="h-14"
+            className=" h-12 w-3 md:h-14 md:w-auto "
           >
-            Buscar
+            <span className="text-white hidden md:block">Buscar</span>
           </Button>
           {/* <button
             onClick={handleClear}
