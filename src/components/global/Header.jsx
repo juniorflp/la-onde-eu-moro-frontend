@@ -2,11 +2,9 @@
 
 import { useAuth } from "@/context/AuthProvider";
 import { getCookie } from "cookies-next";
-import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import HamburguerIcon from "../icons/HamburguerIcon";
-import LogoDark from "../icons/LogoDark";
+import { twMerge } from "tailwind-merge";
 import LogoWhite from "../icons/LogoWhite";
 import ButtonSquare from "./ButtonSquare";
 import ContainerDefault from "./ContainerDefault";
@@ -15,7 +13,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
   const { logout, user, initializing, isAuthenticated } = useAuth();
   const [userData, setUserData] = useState(null);
   const [menuSelected, setMenuSelected] = useState(null); //search, about, login, signup
-  const [showMenu, setShowMenu] = useState(true);
+  const [hideBg, setHideBg] = useState(true);
   const [useDarkLogo, setUseDarkLogo] = useState(false);
   const initialScrollComplete = useRef(false);
 
@@ -50,7 +48,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
       lastScrollY = currentScrollY;
 
       if (isAtTop) {
-        setShowMenu(true);
+        setHideBg(true);
         setUseDarkLogo(false);
         initialScrollComplete.current = false;
         return;
@@ -58,10 +56,10 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
 
       if (!initialScrollComplete.current && currentScrollY > 100) {
         initialScrollComplete.current = true;
-        setShowMenu(false);
+        setHideBg(false);
         setUseDarkLogo(true);
-      } else if (showMenu && scrollingUp) {
-        setShowMenu(false);
+      } else if (hideBg && scrollingUp) {
+        setHideBg(false);
         setUseDarkLogo(true);
       }
     };
@@ -71,121 +69,50 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [showMenu]);
+  }, [hideBg]);
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full py-4 z-[9999] ${
-        useDarkLogo ? "light-background" : "dark-background"
-      }`}
+      className={twMerge(
+        `fixed top-0 left-0 w-full py-4 z-[9999]  ${
+          useDarkLogo ? "light-background" : "dark-background"
+        } transition-all duration-300`,
+        hideBg ? "bg-white hero:bg-transparent " : "bg-white shadow-md"
+      )}
     >
       <ContainerDefault className="flex items-center justify-between">
-        <div className="flex items-center">
+        <div
+          className={twMerge(
+            "flex items-center text-white",
+            forceDarkLogo && "text-[#171717]",
+            hideBg ? "text-[#171717] hero:text-white" : "text-[#171717]"
+          )}
+        >
           <Link href="/" className="text-xl font-semibold">
-            {forceDarkLogo || (useDarkLogo && !forceWhiteLogo) ? <LogoDark /> : <LogoWhite />}
+            {<LogoWhite />}
           </Link>
         </div>
 
         <div className="flex items-center absolute top-0 right-0 w-full max-w-[614px] h-full overflow-hidden">
-          {/* Container que permanece independente do estado do menu */}
-          <motion.div
-            className="flex items-center w-full"
-            layout
-            transition={{
-              layout: {
-                type: "spring",
-                bounce: 0.3,
-                duration: 0.6,
-              },
-            }}
-          >
-            <AnimatePresence mode="wait">
-              {showMenu ? (
-                /* Menu expandido */
-                <motion.div
-                  key="expanded-menu"
-                  className="flex items-center w-full max-w-[614px] border-b border-gray bg-menu-bg backdrop-blur-md"
-                  initial={{ x: 300, scale: 0.8, opacity: 0 }}
-                  animate={{
-                    x: 0,
-                    scale: 1,
-                    opacity: 1,
-                    transition: {
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 20,
-                      bounce: 0.4,
-                    },
-                  }}
-                  exit={{
-                    x: "95%",
-                    scale: 0.2,
-                    opacity: 0,
-                    transition: {
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 30,
-                      duration: 0.4,
-                    },
-                  }}
-                >
-                  <ButtonSquare
-                    className="flex-1"
-                    selected={menuSelected === "search"}
-                    onClick={() => setMenuSelected("search")}
-                  >
-                    Buscar
-                  </ButtonSquare>
-                  <ButtonSquare
-                    className="flex-1"
-                    selected={menuSelected === "about"}
-                    onClick={() => setMenuSelected("about")}
-                  >
-                    Sobre nós
-                  </ButtonSquare>
-                  <ButtonSquare
-                    className="flex-1"
-                    selected={menuSelected === "login"}
-                    onClick={() => setMenuSelected("login")}
-                  >
-                    Fazer login
-                  </ButtonSquare>
-                  <ButtonSquare
-                    className="flex-1"
-                    selected={menuSelected === "signup"}
-                    onClick={() => setMenuSelected("signup")}
-                  >
-                    Cadastrar
-                  </ButtonSquare>
-                </motion.div>
-              ) : (
-                /* Botão hamburger */
-                <motion.button
-                  key="hamburger-button"
-                  onClick={() => setShowMenu(true)}
-                  className="ml-auto mr-10 flex items-center justify-center size-12 min-w-12 border border-gray shadow-md bg-white rounded-2xl font-bold text-primary cursor-pointer select-none"
-                  style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
-                  initial={{ scale: 0.5, opacity: 0, x: -50 }}
-                  animate={{
-                    scale: 1,
-                    opacity: 1,
-                    x: 0,
-                    transition: {
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 25,
-                      delay: 0.0,
-                    },
-                  }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <HamburguerIcon />
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </motion.div>
+          <div className="flex items-center w-full">
+            <div
+              key="expanded-menu"
+              className="flex items-center w-full max-w-[614px] border-b border-gray bg-white"
+            >
+              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("search")}>
+                Buscar
+              </ButtonSquare>
+              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("about")}>
+                Sobre nós
+              </ButtonSquare>
+              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("login")}>
+                Fazer login
+              </ButtonSquare>
+              <ButtonSquare className="flex-1" isFilled onClick={() => setMenuSelected("signup")}>
+                Cadastrar
+              </ButtonSquare>
+            </div>
+          </div>
         </div>
 
         {/* <div className="flex gap-4 items-center">

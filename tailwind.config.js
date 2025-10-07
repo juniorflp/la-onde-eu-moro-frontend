@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        hero: "1250px", // Breakpoint personalizado para o componente Hero
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
