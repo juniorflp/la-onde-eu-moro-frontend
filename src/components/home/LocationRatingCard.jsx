@@ -19,7 +19,7 @@ const LocationRatingCard = ({ location, rating }) => {
         <div className="ml-2">
           <RatingStars rating={rating} />
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto text-[#9E9E9E]">
           <ChevronRightIcon />
         </div>
       </div>

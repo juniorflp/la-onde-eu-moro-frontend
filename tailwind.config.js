@@ -33,6 +33,9 @@ module.exports = {
           dark: "#E65C00",
           light: "#FF7519",
         },
+        tertiary: {
+          DEFAULT: "#EB5959",
+        },
         gray: {
           DEFAULT: "#F6F6F6",
           subtitle: "#5D5D5D",
