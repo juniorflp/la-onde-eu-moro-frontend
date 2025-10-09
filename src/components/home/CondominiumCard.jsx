@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import StarFilledIcon from "../icons/StarFilledIcon";
 import TrendingIcon from "../icons/TrendingIcon";
-import RatingStars from "../ui/RatingStars";
 
 const CondominiumCard = ({
   image = "/images/condominium-test-img.png",
@@ -25,7 +25,7 @@ const CondominiumCard = ({
       </div>
 
       <div className="flex items-center px-4 py-2 bg-[#242424] text-white w-full">
-        <RatingStars rating={rating} />
+        <StarFilledIcon />
         <p className="text-2xl mx-2 truncate flex-1">
           {rating} <span className="text-base text-[#A2A2A2]">/5.0</span>
           <span className="text-base text-[#A2A2A2] ml-1">({totalRatings} avaliações)</span>
