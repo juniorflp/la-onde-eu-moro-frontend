@@ -1,5 +1,6 @@
 import Hero from "@/components/home/Hero";
 import NearbyCondominiums from "@/components/home/NearbyCondominiums";
+import PlansSection from "@/components/home/PlansSection";
 import ServiceFeatures from "@/components/home/ServiceFeatures";
 import SquareSections from "@/components/home/SquareSections";
 
@@ -10,6 +11,7 @@ export default function Home() {
       <ServiceFeatures />
       <NearbyCondominiums />
       <SquareSections />
+      <PlansSection />
     </main>
   );
 }

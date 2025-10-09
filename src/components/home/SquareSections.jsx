@@ -8,7 +8,7 @@ const SquareSections = () => {
       <div className="w-full md:w-[45.28%] flex flex-col h-full">
         <div className="flex items-center h-[178px] md:h-full group cursor-pointer">
           <div className="w-1/2 h-full bg-tertiary text-base md:text-2xl font-medium p-6 md:p-10 flex">
-            <button className="text-white flex items-center justify-between w-full mt-auto">
+            <button className="text-white flex items-center justify-between w-full mt-auto transition-transform duration-500 group-hover:-translate-y-4">
               Para Inquilinos <ChevronRightIcon />
             </button>
           </div>
@@ -33,7 +33,7 @@ const SquareSections = () => {
             />
           </div>
           <div className="w-1/2 h-full bg-secondary p-6 md:p-10 flex">
-            <button className="text-white text-base md:text-2xl font-medium text-left flex items-center justify-between w-full mt-auto">
+            <button className="text-white text-base md:text-2xl font-medium text-left flex items-center justify-between w-full mt-auto transition-transform duration-500 group-hover:-translate-y-4">
               <span className="max-w-[200px]">Para Síndicos, Administradores e Conselheiros</span>{" "}
               <ChevronRightIcon />
             </button>
