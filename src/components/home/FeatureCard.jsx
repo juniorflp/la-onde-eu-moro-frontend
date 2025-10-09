@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const FeatureCard = ({ imageSrc, imageAlt, title, description }) => {
   return (
-    <div className="w-full bg-secondary rounded-xl transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1">
+    <div className="w-full bg-secondary rounded-xl hover-card">
       <div className="h-[181px]">
         <Image
           src={imageSrc}

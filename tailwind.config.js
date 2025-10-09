@@ -33,7 +33,10 @@ module.exports = {
           dark: "#E65C00",
           light: "#FF7519",
         },
-        gray: "#F6F6F6",
+        gray: {
+          DEFAULT: "#F6F6F6",
+          subtitle: "#5D5D5D",
+        },
       },
       animation: {
         "spin-slow": "spin 3s linear infinite reverse",

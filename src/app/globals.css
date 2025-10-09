@@ -38,3 +38,27 @@ body {
     text-wrap: balance;
   }
 }
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex w-full items-center justify-between;
+}
+
+.title-section {
+  @apply text-2xl font-semibold leading-[120%] mb-3;
+}
+
+.subtitle-section {
+  @apply text-gray-subtitle leading-[120%];
+}
+
+.hover-card {
+  @apply transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1;
+}
+
+.button-text {
+  @apply text-primary w-fit  hover:text-secondary font-bold text-center;
+}
