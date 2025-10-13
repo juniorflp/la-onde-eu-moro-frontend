@@ -6,7 +6,7 @@ import PlanCard from "./PlanCard";
 
 const PlansSection = () => {
   return (
-    <ContainerDefault className="py-20 flex-col items-center gap-6 ">
+    <ContainerDefault className="py-6 md:py-20 flex-col items-center gap-6 ">
       <h2 className=" text-[32px] md:text-[56px] leading-[120%] tracking-[-1.1%] max-w-[660px] text-center ">
         Seja <span className="text-secondary font-bold">Premium</span> e aproveite todos os recursos
       </h2>

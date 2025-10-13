@@ -1,3 +1,5 @@
+import Cta from "@/components/global/Cta";
+import Faq from "@/components/home/Faq";
 import Hero from "@/components/home/Hero";
 import NearbyCondominiums from "@/components/home/NearbyCondominiums";
 import PlansSection from "@/components/home/PlansSection";
@@ -12,6 +14,8 @@ export default function Home() {
       <NearbyCondominiums />
       <SquareSections />
       <PlansSection />
+      <Faq />
+      <Cta />
     </main>
   );
 }
