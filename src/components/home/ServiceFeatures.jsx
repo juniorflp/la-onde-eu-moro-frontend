@@ -11,7 +11,7 @@ const ServiceFeatures = () => {
   const isInView = useInView(scratchRef, { once: true, amount: 0.3 });
 
   return (
-    <ContainerDefault className="py-6 px-0 md:px-6  md:py-[108px] flex-col gap-20">
+    <ContainerDefault className="py-6 pl-0 pr-0 md:px-6 md:py-[108px] flex-col gap-20">
       <div className="w-full flex items-center justify-between px-6">
         <div className="flex-col max-w-[781px]">
           <h2 className="text-[32px] md:text-5xl lg:text-[56px] leading-[120%] tracking-[-1.1px]">

@@ -116,7 +116,7 @@ const NearbyCondominiums = () => {
   ];
 
   return (
-    <ContainerDefault className="py-6 px-0 md:px-6  md:py-[80px]  flex-col">
+    <ContainerDefault className="py-6 pl-0 pr-0 md:px-6 md:py-[80px]  flex-col">
       <div className="md:px-0 px-6">
         <h2 className="title-section">Condomínios próximos de você</h2>
         <p className="subtitle-section">
