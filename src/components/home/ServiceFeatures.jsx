@@ -17,13 +17,15 @@ const ServiceFeatures = () => {
           <h2 className="text-[32px] md:text-5xl lg:text-[56px] leading-[120%] tracking-[-1.1px]">
             Quem vive, <b>compartilha</b>
           </h2>
-          <h2 className="text-[32px] md:text-5xl lg:text-[56px] leading-[120%] tracking-[-1.1px] mt-2">
-            Quem quer viver, <b>descobre</b>
+          <h2 className="text-[32px] md:text-5xl lg:text-[56px] leading-[120%] tracking-[-1.1px] mt-2 relative">
+            Quem quer viver,{" "}
+            <b className="relative">
+              descobre
+              <div ref={scratchRef} className="absolute -bottom-2 left-0 w-full">
+                {isInView && <ScratchIcon />}
+              </div>
+            </b>
           </h2>
-
-          <div ref={scratchRef} className="ml-auto w-fit">
-            {isInView && <ScratchIcon />}
-          </div>
         </div>
 
         <Button onClick={() => {}} variant="orange" className="md:block hidden">

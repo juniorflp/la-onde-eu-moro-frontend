@@ -7,7 +7,7 @@ import YoutubeIcon from "../icons/YoutubeIcon";
 
 const Footer = () => {
   return (
-    <div className="flex w-full md:flex-row flex-col relative h-auto md:h-[600px] ">
+    <footer className="flex w-full md:flex-row flex-col relative h-auto md:h-[600px] ">
       <div className="flex-1 max-w-full md:max-w-[32%] bg-secondary p-6 md:p-[108px]">
         <div className="flex flex-col justify-between gap-10 text-white h-full w-full max-w-[246px] ">
           <Link href="/" className="transition-transform duration-300 hover:opacity-80">
@@ -91,12 +91,13 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="flex items-center mt-10 mb-4 md:mb-0 md:mt-0 md:justify-end  gap-3 text-[14px] text-white">
-          <Link href="/terms">TERMOS E CONDIÇÕES DE USO</Link> |{" "}
+        <div className="flex flex-col md:flex-row md:items-center mt-10 mb-4 md:mb-0 md:mt-0 md:justify-end gap-2 md:gap-3 text-[14px] text-white">
+          <Link href="/terms">TERMOS E CONDIÇÕES DE USO</Link>
+          <span className="hidden md:inline">|</span>
           <Link href="/privacy">POLÍTICA DE PRIVACIDADE</Link>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
