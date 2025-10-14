@@ -21,10 +21,10 @@ const Cta = () => {
       />
       <ContainerDefault className="relative flex flex-col">
         <div className="flex-col max-w-[300px] md:max-w-[781px]">
-          <h2 className="text-[24px] md:text-5xl lg:text-[56px] leading-[120%] tracking-[-1.1px]">
+          <h2 className="text-[24px] md:text-[40px]  leading-[120%] tracking-[-1.1px]">
             Quem vive, <b>compartilha</b>
           </h2>
-          <h2 className="text-[24px] md:text-5xl lg:text-[56px] leading-[120%] tracking-[-1.1px] mt-2">
+          <h2 className="text-[24px] md:text-[40px] leading-[120%] tracking-[-1.1px] mt-2">
             Quem quer viver, <b>descobre</b>
           </h2>
         </div>

@@ -11,8 +11,8 @@ const ServiceFeatures = () => {
   const isInView = useInView(scratchRef, { once: true, amount: 0.3 });
 
   return (
-    <ContainerDefault className="py-6 md:py-[108px] flex-col gap-20">
-      <div className="w-full flex items-center justify-between ">
+    <ContainerDefault className="py-6 px-0 md:px-6  md:py-[108px] flex-col gap-20">
+      <div className="w-full flex items-center justify-between px-6">
         <div className="flex-col max-w-[781px]">
           <h2 className="text-[32px] md:text-5xl lg:text-[56px] leading-[120%] tracking-[-1.1px]">
             Quem vive, <b>compartilha</b>
@@ -31,7 +31,7 @@ const ServiceFeatures = () => {
         </Button>
       </div>
 
-      <div className="w-full overflow-x-auto sm:overflow-visible scrollbar-hide py-2">
+      <div className="w-full  pl-6 md:pl-0 overflow-x-auto sm:overflow-visible scrollbar-hide py-2">
         <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 min-w-max sm:min-w-0 pb-4">
           <div className="w-[294px] sm:w-auto flex-shrink-0">
             <FeatureCard

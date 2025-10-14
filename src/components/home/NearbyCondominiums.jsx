@@ -116,14 +116,16 @@ const NearbyCondominiums = () => {
   ];
 
   return (
-    <ContainerDefault className="py-6 md:py-[80px]  flex-col">
-      <h2 className="title-section">Condomínios próximos de você</h2>
-      <p className="subtitle-section">
-        Veja o que moradores dizem sobre o prédio. Avaliações reais, anônimas e organizadas por
-        categoria.
-      </p>
+    <ContainerDefault className="py-6 px-0 md:px-6  md:py-[80px]  flex-col">
+      <div className="md:px-0 px-6">
+        <h2 className="title-section">Condomínios próximos de você</h2>
+        <p className="subtitle-section">
+          Veja o que moradores dizem sobre o prédio. Avaliações reais, anônimas e organizadas por
+          categoria.
+        </p>
+      </div>
 
-      <div className="w-full mt-8 overflow-x-auto sm:overflow-visible scrollbar-hide py-2">
+      <div className="w-full  pl-6 md:pl-0 mt-8 overflow-x-auto sm:overflow-visible scrollbar-hide py-2">
         <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-w-max sm:min-w-0 pb-4">
           {condominiums.map((condo) => (
             <div className="w-[294px] sm:w-auto flex-shrink-0" key={condo.id}>
@@ -144,16 +146,18 @@ const NearbyCondominiums = () => {
       <button className="button-text mx-auto mt-6">Ver todos os condomínios</button>
 
       <div className="mt-20 flex flex-col">
-        <div className="flex justify-between ">
-          <h2 className="title-section">Notas gerais por bairros próximas de você</h2>
-          <button className="button-text w-fit hidden md:block">Ver mais</button>
+        <div className="md:px-0 px-6">
+          <div className="flex justify-between ">
+            <h2 className="title-section">Notas gerais por bairros próximas de você</h2>
+            <button className="button-text w-fit hidden md:block">Ver mais</button>
+          </div>
+          <p className="subtitle-section">
+            Veja o que moradores dizem sobre o prédio. Avaliações reais, anônimas e organizadas por
+            categoria.
+          </p>
         </div>
-        <p className="subtitle-section">
-          Veja o que moradores dizem sobre o prédio. Avaliações reais, anônimas e organizadas por
-          categoria.
-        </p>
 
-        <div className="w-full flex flex-col mt-8 overflow-x-auto sm:overflow-visible scrollbar-hide py-2 ">
+        <div className="w-full pl-6 md:pl-0 flex flex-col mt-8 overflow-x-auto sm:overflow-visible scrollbar-hide py-2 ">
           <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 min-w-max sm:min-w-0 pb-4">
             {ratings.map((rating) => (
               <div className="w-[239px] sm:w-auto flex-shrink-0" key={rating.id}>
@@ -161,9 +165,8 @@ const NearbyCondominiums = () => {
               </div>
             ))}
           </div>
-
-          <button className="button-text mx-auto mt-2 block md:hidden">Ver mais</button>
         </div>
+        <button className="button-text mx-auto mt-2 block md:hidden">Ver mais</button>
       </div>
     </ContainerDefault>
   );

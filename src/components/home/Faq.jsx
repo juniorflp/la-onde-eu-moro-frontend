@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import Button from "../global/Button";
 import ContainerDefault from "../global/ContainerDefault";
 import Accordion from "../ui/Accordion";
 
@@ -100,6 +101,21 @@ const Faq = () => {
             />
           ))}
         </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row md:justify-between bg-[#F8F8F8] rounded-xl p-4 md:p-10 mt-6">
+        <div>
+          <h3 className="text-[24px] font-bold leading-[120%] tracking-[-0.4px]">
+            Não encontrou a sua pergunta?
+          </h3>
+          <p className=" mt-2">
+            Clique em entrar em contato e fale conosco, será um grande prazer.
+          </p>
+        </div>
+
+        <Button variant="orange" className="w-full md:w-fit mt-4 md:mt-0">
+          Entrar em contato
+        </Button>
       </div>
     </ContainerDefault>
   );
