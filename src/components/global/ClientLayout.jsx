@@ -2,6 +2,7 @@
 
 import Header from "@/components/global/Header";
 import AuthProvider from "@/context/AuthProvider";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
 import Footer from "./Footer";
 
@@ -11,11 +12,13 @@ import Footer from "./Footer";
  */
 export default function ClientLayout({ children }) {
   return (
-    <AuthProvider>
-      <ToastContainer />
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </AuthProvider>
+    <ReactQueryProvider>
+      <AuthProvider>
+        <ToastContainer />
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </AuthProvider>
+    </ReactQueryProvider>
   );
 }

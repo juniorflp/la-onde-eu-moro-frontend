@@ -1,7 +1,9 @@
 "use client";
 
+import { usePlaceDetails } from "@/hooks/usePlaceDetails";
+import { useSearchPlaces } from "@/hooks/useSearchPlaces";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Button from "../global/Button";
 import ButtonSquare from "../global/ButtonSquare";
@@ -9,46 +11,35 @@ import SearchIcon from "../icons/SearchIcon";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [placeDetails, setPlaceDetails] = useState(null);
-  const [loadingDetails, setLoadingDetails] = useState(false);
   const [typeSearch, setTypeSearch] = useState("condominium"); // "condominium", "city"
 
-  const handleSearch = async () => {
+  // React Query hooks
+  const {
+    data: searchData,
+    isLoading: loading,
+    error: searchError,
+  } = useSearchPlaces(searchQuery, !!searchQuery);
+
+  const {
+    data: placeDetails,
+    isLoading: loadingDetails,
+    error: detailsError,
+  } = usePlaceDetails(selectedPlace?.placeId, !!selectedPlace?.placeId);
+
+  const results = useMemo(() => searchData?.predictions || [], [searchData]);
+  const error = searchError?.message || detailsError?.message || "";
+
+  const handleSearch = () => {
     if (!query.trim()) return;
-
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Erro ao buscar dados");
-      }
-
-      const predictions = data.predictions || [];
-
-      setResults(predictions);
-    } catch (err) {
-      console.error("Erro na busca:", err);
-      setError(err.message);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
+    setSearchQuery(query);
   };
 
   const handleClear = () => {
     setQuery("");
-    setResults([]);
-    setError("");
+    setSearchQuery("");
     setSelectedPlace(null);
-    setPlaceDetails(null);
   };
 
   const handleKeyDown = (e) => {
@@ -57,27 +48,8 @@ export default function SearchBar() {
     }
   };
 
-  const handleViewDetails = async (placeId, description) => {
+  const handleViewDetails = (placeId, description) => {
     setSelectedPlace({ placeId, description });
-    setLoadingDetails(true);
-    setError("");
-
-    try {
-      const response = await fetch(`/api/place-details?placeId=${encodeURIComponent(placeId)}`);
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Erro ao buscar detalhes do local");
-      }
-
-      setPlaceDetails(data.result || null);
-    } catch (err) {
-      console.error("Erro ao buscar detalhes:", err);
-      setError(err.message);
-      setPlaceDetails(null);
-    } finally {
-      setLoadingDetails(false);
-    }
   };
 
   // Adicionamos um evento para fechar os resultados quando clicar fora
