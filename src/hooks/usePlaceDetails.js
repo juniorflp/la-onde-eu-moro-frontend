@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 /**
- * Hook para buscar detalhes de um local específico
+ * Hook para buscar detalhes de um local específico via Next.js API route
  * @param {string} placeId - ID do local no Google Places
  * @param {boolean} enabled - Se a query deve ser executada
  */

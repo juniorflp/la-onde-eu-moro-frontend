@@ -38,8 +38,10 @@ const CondominiumCard = ({
         <p className="font-bold truncate" title={name}>
           {name}
         </p>
-        <p className="text-[14px] truncate" title={address}>
-          {address}
+        <p className="text-[14px] truncate hover:text-blue-600" title={address}>
+          <Link href={href} target="_blank" rel="noopener noreferrer">
+            {address}
+          </Link>
         </p>
 
         <Link href={href} className="font-semibold mt-2 underline">
