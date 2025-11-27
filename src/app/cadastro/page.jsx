@@ -79,7 +79,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
+    <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12 bg-gray-100">
       <div className="w-full max-w-lg">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold mb-2">Criar uma conta</h1>

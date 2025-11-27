@@ -16,6 +16,8 @@ const AuthProvider = ({ children }) => {
   const [loadingSignup, setLoadingSignup] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
 
   const fetchCurrentUser = useCallback(async () => {
@@ -39,7 +41,9 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  console.log("loading", loading);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     // Ensure we're running on client side
@@ -67,18 +71,21 @@ const AuthProvider = ({ children }) => {
           const cookieOptions = { maxAge: 30 * 24 * 60 * 60, path: "/" };
           setCookie("userData", JSON.stringify(currentUser), cookieOptions);
           setIsAuthenticated(true);
+          setIsInitialized(true);
         } else {
           deleteCookie("authToken", { path: "/" });
           deleteCookie("userData", { path: "/" });
           setAuthToken(null);
           setUser(null);
           setIsAuthenticated(false);
+          setIsInitialized(true);
         }
       });
     } else {
       setLoading(false);
+      setIsInitialized(true);
     }
-  }, []);
+  }, [fetchCurrentUser]);
 
   const login = async (email, password) => {
     setLoadingLogin(true);
@@ -105,16 +112,18 @@ const AuthProvider = ({ children }) => {
         setUser(userData);
         setCookie("userData", JSON.stringify(userData), cookieOptions);
         setIsAuthenticated(true);
+        setIsInitialized(true);
       }
 
       router.push("/");
 
       return { success: true };
     } catch (error) {
-      setLoadingLogin(false);
       console.error("Erro de login:", error);
-
-      return { success: false, error: error.message };
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || "Erro ao fazer login",
+      };
     } finally {
       setLoadingLogin(false);
     }
@@ -132,16 +141,14 @@ const AuthProvider = ({ children }) => {
   const signup = async (userData) => {
     setLoadingSignup(true);
     try {
-      const response = await api.post(`api/auth/v1/register`, userData);
-
-      const data = response.data;
-
+      await api.post(`api/auth/v1/register`, userData);
       return login(userData.email, userData.password);
     } catch (error) {
-      setLoadingSignup(false);
       console.error("Erro de cadastro:", error);
-
-      return { success: false, error: error.message };
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || "Erro ao criar conta",
+      };
     } finally {
       setLoadingSignup(false);
     }
@@ -161,8 +168,6 @@ const AuthProvider = ({ children }) => {
     return false;
   };
 
-  console.log("User:", user);
-
   const contextValue = {
     user,
     login,
@@ -172,11 +177,14 @@ const AuthProvider = ({ children }) => {
     loadingLogin,
     loadingSignup,
     refreshUserData,
+    isInitialized,
+    isMounted,
   };
 
   return (
     <AuthContext.Provider value={contextValue}>
-      {loading && getCookie("authToken") ? <LoadingScreen /> : children}
+      {/* Exibe loading apenas no servidor e primeira renderização do cliente */}
+      {!isMounted && loading ? <LoadingScreen /> : children}
     </AuthContext.Provider>
   );
 };

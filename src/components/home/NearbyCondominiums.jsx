@@ -91,10 +91,6 @@ const NearbyCondominiums = () => {
     getUserLocation();
   }, []);
 
-  console.log("Localização:", userLocation);
-  console.log("Condomínios:", condominiums);
-  console.log("Ratings de bairros:", neighborhoodRatings);
-
   return (
     <ContainerDefault className="py-6 pl-0 pr-0 md:px-6 md:py-[80px]  flex-col">
       <div className="md:px-0 px-6">

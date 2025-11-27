@@ -1,8 +1,8 @@
 "use client";
 
 import { useAuth } from "@/context/AuthProvider";
-import { getCookie } from "cookies-next";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import HamburguerIcon from "../icons/HamburguerIcon";
@@ -13,34 +13,30 @@ import Button from "./Button";
 import ButtonSquare from "./ButtonSquare";
 import ContainerDefault from "./ContainerDefault";
 
-const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
-  const { logout, user, initializing, isAuthenticated } = useAuth();
-  const [userData, setUserData] = useState(null);
+const Header = ({ forceDarkLogo = false }) => {
+  const { logout, user, isInitialized, isMounted } = useAuth();
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [menuSelected, setMenuSelected] = useState(null); //search, about, login, signup
   const [hideBg, setHideBg] = useState(true);
   const [hideSearch, setHideSearch] = useState(true);
   const [useDarkLogo, setUseDarkLogo] = useState(false);
   const initialScrollComplete = useRef(false);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      setUserData(null);
-      return;
-    }
+  // Só exibe dados do usuário após montagem e inicialização completas
+  const userData = isMounted && isInitialized ? user : null;
 
-    if (user) {
-      setUserData(user);
+  useEffect(() => {
+    if (!isHomePage) {
+      setHideBg(false);
+      setUseDarkLogo(true);
+      initialScrollComplete.current = true;
     } else {
-      const userDataFromCookie = getCookie("userData");
-      if (userDataFromCookie) {
-        try {
-          setUserData(JSON.parse(String(userDataFromCookie)));
-        } catch (e) {
-          console.error("Error parsing user data:", e);
-        }
-      }
+      setHideBg(true);
+      setUseDarkLogo(false);
+      initialScrollComplete.current = false;
     }
-  }, [user, isAuthenticated]);
+  }, [pathname, isHomePage]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -52,18 +48,25 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
 
       lastScrollY = currentScrollY;
 
-      if (isAtTop) {
-        setHideBg(true);
-        setUseDarkLogo(false);
-        initialScrollComplete.current = false;
-        return;
-      }
+      // Só aplica o comportamento de transparência se estiver na home
+      if (isHomePage) {
+        if (isAtTop) {
+          setHideBg(true);
+          setUseDarkLogo(false);
+          initialScrollComplete.current = false;
+          return;
+        }
 
-      if (!initialScrollComplete.current && currentScrollY > 100) {
-        initialScrollComplete.current = true;
-        setHideBg(false);
-        setUseDarkLogo(true);
-      } else if (hideBg && scrollingUp) {
+        if (!initialScrollComplete.current && currentScrollY > 100) {
+          initialScrollComplete.current = true;
+          setHideBg(false);
+          setUseDarkLogo(true);
+        } else if (hideBg && scrollingUp) {
+          setHideBg(false);
+          setUseDarkLogo(true);
+        }
+      } else {
+        // Em outras páginas, sempre mostra o background
         setHideBg(false);
         setUseDarkLogo(true);
       }
@@ -80,7 +83,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [hideBg]);
+  }, [hideBg, isHomePage]);
 
   return (
     <>
@@ -100,17 +103,21 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
               hideBg ? "text-[#171717] hero:text-white" : "text-[#171717]"
             )}
           >
-            <Link href="/" className="text-xl font-semibold">
-              {<LogoWhite />}
+            <Link
+              href="/"
+              className="text-xl font-semibold"
+              aria-label="Voltar para página inicial"
+            >
+              <LogoWhite />
             </Link>
           </div>
 
           {/* Menu hamburger para mobile */}
           <div className="md:hidden flex items-center gap-4">
             <Button
-              onClick={() => {}}
               icon={<SearchIcon />}
               variant="orange"
+              aria-label="Buscar condomínios"
               className={twMerge(
                 "h-12 w-12 md:h-14 md:w-auto opacity-0 transform scale-0 transition-all duration-300",
                 !hideSearch && "opacity-100 scale-100"
@@ -125,6 +132,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
                 hideBg ? "text-[#171717] hero:text-white" : "text-[#171717]"
               )}
               onClick={() => setMenuSelected("mobile-menu")}
+              aria-label="Abrir menu"
             >
               <HamburguerIcon />
             </button>
@@ -143,12 +151,22 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
                 <ButtonSquare className="flex-1" isFilled>
                   Sobre nós
                 </ButtonSquare>
-                <ButtonSquare className="flex-1" isFilled>
-                  Fazer login
-                </ButtonSquare>
-                <ButtonSquare className="flex-1" isFilled>
-                  Cadastrar
-                </ButtonSquare>
+                <Link href="/cadastro" className="flex-1">
+                  <ButtonSquare isFilled>Cadastrar</ButtonSquare>
+                </Link>
+                <div className="flex-1" suppressHydrationWarning>
+                  {!userData ? (
+                    <Link href="/login" className="w-full h-full">
+                      <ButtonSquare isFilled className="whitespace-nowrap">
+                        Fazer login
+                      </ButtonSquare>
+                    </Link>
+                  ) : (
+                    <ButtonSquare isFilled className="whitespace-nowrap" onClick={logout}>
+                      Sair
+                    </ButtonSquare>
+                  )}
+                </div>
               </nav>
             </div>
           </div>
@@ -168,6 +186,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
         <button
           className="absolute top-6 right-6 w-[44px] h-[44px] flex justify-center items-center rounded-[12px] border border-[#DCDCE9] bg-white shadow-[0_1px_2px_0_rgba(16,40,34,0.05)] text-[#171717]"
           onClick={() => setMenuSelected(null)}
+          aria-label="Fechar menu"
         >
           <svg
             width="14"
@@ -185,7 +204,7 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
           </svg>
         </button>
 
-        <nav className="flex flex-col px-6">
+        <nav className="flex flex-col px-6" suppressHydrationWarning>
           <Link
             href="#"
             className="py-5 border-b border-secondary text-lg font-medium text-gray-800"
@@ -198,18 +217,29 @@ const Header = ({ forceDarkLogo = false, forceWhiteLogo = false }) => {
           >
             Sobre nós
           </Link>
-          <Link
-            href="/login"
-            className="py-5 border-b border-secondary text-lg font-medium text-gray-800"
-          >
-            Fazer login
-          </Link>
-          <Link
-            href="/cadastro"
-            className="py-5 border-b border-secondary text-lg font-medium text-gray-800"
-          >
-            Cadastrar
-          </Link>
+          {!isMounted || !isInitialized || !userData ? (
+            <>
+              <Link
+                href="/login"
+                className="py-5 border-b border-secondary text-lg font-medium text-gray-800"
+              >
+                Fazer login
+              </Link>
+              <Link
+                href="/cadastro"
+                className="py-5 border-b border-secondary text-lg font-medium text-gray-800"
+              >
+                Cadastrar
+              </Link>
+            </>
+          ) : (
+            <button
+              onClick={logout}
+              className="py-5 border-b border-secondary text-lg font-medium text-gray-800 text-left"
+            >
+              Sair
+            </button>
+          )}
         </nav>
       </div>
     </>
