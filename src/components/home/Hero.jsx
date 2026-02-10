@@ -7,29 +7,29 @@ import SearchBar from "../search/SearchBar";
 
 const Hero = () => {
   return (
-    <section className="relative md:h-[731px] bg-primary ">
-      <ContainerDefault className="h-full pl-0 pr-0 md:pl-4 lg:pr-0 gap-0 md:gap-4 flex-col-reverse md:flex-row">
-        <div className="w-full max-w-full md:max-w-[638px] p-6 md:pl-0 md:pr-0 pb-12 md:pb-0 md:pt-40">
-          <h1 className="text-[32px] md:text-5xl lg:text-[52px]  text-white mb-4 drop-shadow-lg leading-[110%] tracking-[-0.6] md:tracking-[-1px]">
-            Veja a reputação de qualquer condomínio
+    <section className="relative border-horizontal-b">
+      <ContainerDefault className="h-full flex-col-reverse md:flex-row w-full  border-vertical ">
+        <div className="w-full max-w-full flex flex-col justify-center p-10">
+          <h1 className="text-[32px] md:text-5xl lg:text-[52px] font-bold md:leading-[120%]  text-[#0C201F] mb-4 ">
+            Veja a reputação de <span className="text-primary">Qualquer</span> condomínio
           </h1>
-          <p className=" text-white mb-8 md:mb-14 text-sm md:text-base">
+          <p className=" text-[#0C201F] mb-8 md:mb-14 text-sm md:text-base">
             Veja o que moradores dizem sobre o prédio. Avaliações reais, anônimas e organizadas por
             categoria.
           </p>
 
           <SearchBar />
-          <spam className=" text-white mt-6 block">
+          <span className=" text-[#0C201F] mt-6 block">
             É síndico ou gestor?
             <Link href="#" className=" ml-2 font-bold hover:underline">
               Veja nossos serviços
             </Link>
-          </spam>
+          </span>
           <br />
         </div>
-        <div className="w-full max-w-full md:max-w-[614px] h-[300px] md:h-auto hero:absolute hero:right-0 hero:top-0 bg-white max-hero:w-full max-hero:mt-10">
+        <div className="w-full max-w-full ">
           <Image
-            src="/images/hero-bg.webp"
+            src="/svg/fade-green.svg"
             alt="Imagem de destaque"
             width={614}
             height={731}

@@ -17,7 +17,7 @@
 
 :root {
   --background: #fcfcfc;
-  --foreground: #171717;
+  --foreground: #2d2d2d;
 }
 
 html {
@@ -61,4 +61,16 @@ body {
 
 .button-text {
   @apply text-primary w-fit  hover:text-secondary font-bold text-center;
+}
+
+.border-vertical {
+  @apply border-l border-r border-border-color;
+}
+
+.border-horizontal-b {
+  @apply border-b border-border-color;
+}
+
+.border-horizontal-t {
+  @apply border-t border-border-color;
 }

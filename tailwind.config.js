@@ -1,3 +1,5 @@
+const { color } = require("motion");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -14,19 +16,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: {
-          DEFAULT: "#009C60",
-          dark: "#008050",
-          light: "#00B670",
-          50: "#E6F7EF",
-          100: "#CCEFE0",
-          200: "#99DFC1",
-          300: "#66CFA1",
-          400: "#33BF82",
-          500: "#009C60",
-          600: "#007D4D",
-          700: "#005E3A",
-          800: "#003E27",
-          900: "#001F13",
+          DEFAULT: "#09A293",
+          dark: "#00796B",
+          light: "#4DB6AC",
         },
         secondary: {
           DEFAULT: "#FD6E36",
@@ -40,6 +32,7 @@ module.exports = {
           DEFAULT: "#F6F6F6",
           subtitle: "#5D5D5D",
         },
+        "border-color": "#EDEBEB",
       },
       animation: {
         "spin-slow": "spin 3s linear infinite reverse",

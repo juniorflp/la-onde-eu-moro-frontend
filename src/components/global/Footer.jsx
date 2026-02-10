@@ -2,7 +2,7 @@ import Link from "next/link";
 import FacebookIcon from "../icons/FacebookIcon";
 import InstaIcon from "../icons/InstaIcon";
 import LinkdinIcon from "../icons/LinkdinIcon";
-import LogoWhite from "../icons/LogoWhite";
+import Logo from "../icons/Logo";
 import YoutubeIcon from "../icons/YoutubeIcon";
 
 const Footer = () => {
@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="flex-1 max-w-full md:max-w-[32%] bg-secondary p-6 md:p-[108px]">
         <div className="flex flex-col justify-between gap-10 text-white h-full w-full max-w-[246px] ">
           <Link href="/" className="transition-transform duration-300 hover:opacity-80">
-            <LogoWhite />
+            <Logo />
           </Link>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor

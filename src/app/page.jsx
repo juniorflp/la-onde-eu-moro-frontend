@@ -8,7 +8,7 @@ import SquareSections from "@/components/home/SquareSections";
 
 export default function Home() {
   return (
-    <main className="min-h-screen ">
+    <main className="min-h-screen mt-20">
       <Hero />
       <ServiceFeatures />
       <NearbyCondominiums />
