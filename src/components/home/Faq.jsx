@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import Button from "../global/Button";
+import ButtonSquare from "../global/ButtonSquare";
 import ContainerDefault from "../global/ContainerDefault";
 import Accordion from "../ui/Accordion";
 
@@ -113,9 +113,9 @@ const Faq = () => {
           </p>
         </div>
 
-        <Button variant="orange" className="w-full md:w-fit mt-4 md:mt-0">
+        <ButtonSquare variant="secondary" className="w-full md:w-fit mt-4 md:mt-0">
           Entrar em contato
-        </Button>
+        </ButtonSquare>
       </div>
     </ContainerDefault>
   );

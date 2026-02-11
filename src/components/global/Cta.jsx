@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "./Button";
+import ButtonSquare from "./ButtonSquare";
 import ContainerDefault from "./ContainerDefault";
 
 const Cta = () => {
@@ -28,9 +28,9 @@ const Cta = () => {
             Quem quer viver, <b>descobre</b>
           </h2>
         </div>
-        <Button variant="orange" className="w-fit mt-[32px]">
+        <ButtonSquare variant="secondary" className="w-fit mt-[32px]">
           Saiba mais
-        </Button>
+        </ButtonSquare>
       </ContainerDefault>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../global/Button";
+import ButtonSquare from "../global/ButtonSquare";
 import CheckIcon from "../icons/CheckIcon";
 
 /**
@@ -34,9 +34,9 @@ const PlanCard = ({
       <div className="flex items-center justify-between">
         {icon}
         {isPopular && (
-          <Button variant="orange" className="h-[36px] cursor-default">
+          <ButtonSquare variant="secondary" className="h-[36px] cursor-default">
             Mais Popular
-          </Button>
+          </ButtonSquare>
         )}
       </div>
       <h3 className="text-[24px] font-bold mt-4">{planName}</h3>
@@ -51,9 +51,9 @@ const PlanCard = ({
 
       <div className="w-full h-[1px] bg-[#DDD] my-6" />
 
-      <Button variant="orange" className="w-full">
+      <ButtonSquare variant="secondary" className="w-full">
         {buttonLabel}
-      </Button>
+      </ButtonSquare>
 
       <p className="font-bold mt-6">Incluído:</p>
 

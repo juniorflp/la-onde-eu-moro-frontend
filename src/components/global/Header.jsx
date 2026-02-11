@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge";
 import HamburguerIcon from "../icons/HamburguerIcon";
 import Logo from "../icons/Logo";
 import SearchIcon from "../icons/SearchIcon";
-import Button from "./Button";
 import ButtonSquare from "./ButtonSquare";
 import ContainerDefault from "./ContainerDefault";
 
@@ -39,16 +38,16 @@ const Header = ({}) => {
 
           {/* Menu hamburger para mobile */}
           <div className="md:hidden flex items-center gap-4">
-            <Button
+            <ButtonSquare
               icon={<SearchIcon />}
-              variant="orange"
+              variant="secondary"
               aria-label="Buscar condomínios"
               className={twMerge(
                 "h-12 w-12 md:h-14 md:w-auto opacity-0 transform scale-0 transition-all duration-300",
               )}
             >
               <span className="text-white hidden md:block">Buscar</span>
-            </Button>
+            </ButtonSquare>
             <button
               className={twMerge(
                 "flex justify-center items-center w-[44px] h-[44px] p-2 rounded-[12px] border border-[#DCDCE9] bg-white shadow-[0_1px_2px_0_rgba(16,40,34,0.05)]",

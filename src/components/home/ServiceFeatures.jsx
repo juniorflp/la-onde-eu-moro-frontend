@@ -1,7 +1,7 @@
 "use client";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import Button from "../global/Button";
+import ButtonSquare from "../global/ButtonSquare";
 import ContainerDefault from "../global/ContainerDefault";
 import ScratchIcon from "../icons/ScratchIcon";
 import FeatureCard from "./FeatureCard";
@@ -28,9 +28,9 @@ const ServiceFeatures = () => {
           </h2>
         </div>
 
-        <Button onClick={() => {}} variant="orange" className="md:block hidden">
+        <ButtonSquare onClick={() => {}} variant="secondary" className="md:block hidden">
           Saiba mais
-        </Button>
+        </ButtonSquare>
       </div>
 
       <div className="w-full  pl-6 md:pl-0 overflow-x-auto sm:overflow-visible scrollbar-hide py-2">

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "../global/Button";
+import ButtonSquare from "../global/ButtonSquare";
 import ChevronRightIcon from "../icons/ChevronRightIcon";
 
 const SquareSections = () => {
@@ -59,9 +59,9 @@ const SquareSections = () => {
             Veja o que moradores dizem sobre o prédio. Avaliações reais, anônimas e organizadas por
             categoria.
           </p>
-          <Button variant="orange" className="w-fit h-12">
+          <ButtonSquare variant="secondary" className="w-fit h-12">
             Saiba mais
-          </Button>
+          </ButtonSquare>
         </div>
       </div>
     </section>
