@@ -21,7 +21,7 @@ const NearbyCondominiums = () => {
     userLocation?.latitude,
     userLocation?.longitude,
     5000, // 5km de raio
-    !!userLocation // só executa se tiver localização
+    !!userLocation, // só executa se tiver localização
   );
 
   // React Query hook para buscar ratings de bairros próximos
@@ -33,7 +33,7 @@ const NearbyCondominiums = () => {
     userLocation?.latitude,
     userLocation?.longitude,
     5000,
-    !!userLocation
+    !!userLocation,
   );
 
   // Função para obter a localização do usuário
@@ -83,7 +83,7 @@ const NearbyCondominiums = () => {
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
-      }
+      },
     );
   };
 
@@ -92,7 +92,7 @@ const NearbyCondominiums = () => {
   }, []);
 
   return (
-    <ContainerDefault className="py-6 pl-0 pr-0 md:px-6 md:py-[80px]  flex-col">
+    <ContainerDefault className="pl-0 pr-0 md:px-6 mt-32 flex-col">
       <div className="md:px-0 px-6">
         <h2 className="title-section">Condomínios próximos de você</h2>
         <p className="subtitle-section">

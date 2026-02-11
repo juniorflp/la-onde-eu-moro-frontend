@@ -11,8 +11,8 @@ export default function Home() {
     <main className="min-h-screen mt-20">
       <Hero />
       <ServiceFeatures />
-      <NearbyCondominiums />
       <SquareSections />
+      <NearbyCondominiums />
       <PlansSection />
       <Faq />
       <Cta />
