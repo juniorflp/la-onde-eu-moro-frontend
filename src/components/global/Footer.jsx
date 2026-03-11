@@ -7,17 +7,15 @@ import YoutubeIcon from "../icons/YoutubeIcon";
 
 const Footer = () => {
   return (
-    <footer className="flex w-full md:flex-row flex-col relative h-auto md:h-[600px] ">
-      <div className="flex-1 max-w-full md:max-w-[32%] bg-secondary p-6 md:p-[108px]">
-        <div className="flex flex-col justify-between gap-10 text-white h-full w-full max-w-[246px] ">
+    <footer className="flex w-full md:flex-row flex-col relative h-auto md:h-[482px]  bg-primary text-white">
+      <div className="flex items-center h-[120px] border-white border-b-2 w-full">
+        <div className="w-[156px]"></div>
+
+        <div className="border-white border-l-2 border-r-2 h-full w-full">
           <Link href="/" className="transition-transform duration-300 hover:opacity-80">
             <Logo />
           </Link>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Libero volutpat sed cras ornare. Lectus
-            vestibulum.
-          </p>
+
           <div className="flex items-center gap-4">
             <Link href="#" aria-label="LinkedIn" className="transition-transform hover:scale-125">
               <LinkdinIcon className="transition-all duration-300 hover:opacity-80" />
@@ -32,70 +30,8 @@ const Footer = () => {
               <YoutubeIcon className="transition-all duration-300 hover:opacity-80" />
             </Link>
           </div>
-          <p className="text-[14px] text-white">© 2025 LÁ ONDE EU MORO.</p>
         </div>
-      </div>
-
-      <div className="flex-1  bg-primary p-6 justify-between flex-col flex w-full md:p-[108px]">
-        <div className="w-full h-2" />
-
-        <div className="flex md:flex-row flex-col gap-6 justify-between w-full ">
-          <div className="flex flex-col  text-white h-full w-full max-w-[246px] ">
-            <h4 className="font-bold text-[14px] tracking-[4px] mb-4">LÁ ONDE EU MORO</h4>
-            <ul className="flex flex-col gap-2">
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Sobre nós</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Mapa de condomínios</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Regiões Atendidas</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Blog</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="flex flex-col  text-white h-full w-full max-w-[246px] ">
-            <h4 className="font-bold text-[14px] tracking-[4px] mb-4">GESTÃO</h4>
-            <ul className="flex flex-col gap-2">
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Síndicos, Administradores e Conselheiros</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="flex flex-col  text-white h-full w-full max-w-[246px] ">
-            <h4 className="font-bold text-[14px] tracking-[4px] mb-4">INFORMAÇÕES</h4>
-            <ul className="flex flex-col gap-2">
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Guia de Uso</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Indique e Ganhe</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Denúncias</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Perguntas Frequêntes</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Contato</Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href="#">Central de ajuda</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row md:items-center mt-10 mb-4 md:mb-0 md:mt-0 md:justify-end gap-2 md:gap-3 text-[14px] text-white">
-          <Link href="/terms">TERMOS E CONDIÇÕES DE USO</Link>
-          <span className="hidden md:inline">|</span>
-          <Link href="/privacy">POLÍTICA DE PRIVACIDADE</Link>
-        </div>
+        <div className="w-[156px]"></div>
       </div>
     </footer>
   );

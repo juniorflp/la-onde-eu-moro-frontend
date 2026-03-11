@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import ButtonSquare from "../global/ButtonSquare";
 import ContainerDefault from "../global/ContainerDefault";
+import SectionHeader from "../global/SectionHeader";
 import Accordion from "../ui/Accordion";
 
 const Faq = () => {
@@ -62,62 +63,64 @@ const Faq = () => {
   ];
 
   return (
-    <ContainerDefault className="py-6 md:py-[80px] flex-col">
-      <div className="w-full flex md:hidden my-6">
-        <Image
-          src="/images/faq-img-mobile.webp"
-          alt="faq-image"
-          width={768}
-          height={330}
-          className="rounded-lg"
-        />
-      </div>
-      <h2 className="text-[32px] md:text-[56px] font-normal md:font-bold leading-[120%] tracking-[-1.1%] mb-3">
-        Possui alguma dúvida?
-      </h2>
-      <p className="subtitle-section max-w-[712px] mb-6 md:mb-10">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-        been the industry standard dummy text ever since the 1500s
-      </p>
-
-      <div className="flex flex-col md:flex-row items-start mt-6 gap-6 md:gap-20 w-full">
-        <div className="md:w-1/2 hidden md:flex">
+    <div className="mt-16 md:mt-32">
+      <SectionHeader
+        title="Possui alguma dúvida?"
+        subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+        action={<></>}
+      />
+      <ContainerDefault className="flex-col border-vertical ">
+        <div className="w-full flex md:hidden my-6">
           <Image
-            src="/images/faq-img.webp"
+            src="/images/faq-img-mobile.webp"
             alt="faq-image"
-            width={590}
-            height={712}
+            width={768}
+            height={330}
             className="rounded-lg"
           />
         </div>
-        <div className="md:w-1/2 w-full">
-          {faqItems.map((item, index) => (
-            <Accordion
-              key={index}
-              question={item.question}
-              answer={item.answer}
-              isOpen={openIndex === index}
-              toggleAccordion={() => setOpenIndex(openIndex === index ? null : index)}
+
+        <div className="flex flex-col md:flex-row items-stretch mt-6 gap-6 md:gap-20 w-full">
+          <div className="relative md:w-1/2 w-full hidden md:block md:h-[720px]">
+            <Image
+              src="/svg/fade-green.svg"
+              alt="Imagem de destaque"
+              fill
+              className="object-cover"
             />
-          ))}
+          </div>
+          <div className="md:w-1/2 w-full">
+            {faqItems.map((item, index) => (
+              <Accordion
+                key={index}
+                question={item.question}
+                answer={item.answer}
+                isOpen={openIndex === index}
+                toggleAccordion={() => setOpenIndex(openIndex === index ? null : index)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      </ContainerDefault>
+      <div className="border-horizontal">
+        <ContainerDefault className="flex-col border-vertical ">
+          <div className="flex flex-col md:flex-row md:justify-between bg-[#F8F8F8] rounded-xl py-10 px-6 md:px-10">
+            <div>
+              <h3 className="text-[24px] font-bold leading-[120%] tracking-[-0.4px]">
+                Não encontrou a sua pergunta?
+              </h3>
+              <p className=" mt-2">
+                Clique em entrar em contato e fale conosco, será um grande prazer.
+              </p>
+            </div>
 
-      <div className="flex flex-col md:flex-row md:justify-between bg-[#F8F8F8] rounded-xl p-4 md:p-10 mt-6">
-        <div>
-          <h3 className="text-[24px] font-bold leading-[120%] tracking-[-0.4px]">
-            Não encontrou a sua pergunta?
-          </h3>
-          <p className=" mt-2">
-            Clique em entrar em contato e fale conosco, será um grande prazer.
-          </p>
-        </div>
-
-        <ButtonSquare variant="secondary" className="w-full md:w-fit mt-4 md:mt-0">
-          Entrar em contato
-        </ButtonSquare>
+            <ButtonSquare variant="primary" className="w-full md:w-fit mt-4 md:mt-0">
+              Entrar em contato
+            </ButtonSquare>
+          </div>
+        </ContainerDefault>
       </div>
-    </ContainerDefault>
+    </div>
   );
 };
 

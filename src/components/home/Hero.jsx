@@ -27,7 +27,7 @@ const Hero = () => {
           </span>
           <br />
         </div>
-        <div className="relative w-full max-w-full h-[400px] md-h-[820px] 3xl:max-w-[994px]">
+        <div className="relative w-full max-w-full h-[400px] md:h-[820px] 3xl:max-w-[994px]">
           <Image
             src="/svg/fade-green.svg"
             alt="Imagem de destaque"

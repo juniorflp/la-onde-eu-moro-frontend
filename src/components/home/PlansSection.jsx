@@ -16,7 +16,7 @@ const PlansSection = () => {
         }
         subtitle="Confira todos os benefícios dos nossos planos abaixo."
       />
-      <ContainerDefault className="flex-col items-center gap-6 ">
+      <ContainerDefault className="flex-col items-center gap-6 border-vertical ">
         <div className="flex w-full  max-w-[990px] 3xl:max-w-[1470px] flex-wrap">
           <PlanCard
             icon={<LeafIcon />}
