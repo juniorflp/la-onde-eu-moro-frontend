@@ -19,18 +19,18 @@ const ScratchIcon = ({ className }) => {
 
   return (
     <motion.svg
-      width="200"
+      width="140"
       height="14"
-      viewBox="0 0 200 14"
+      viewBox="0 0 140 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`w-[140px] md:w-[200px] ${className || ""}`}
+      className={`w-[140px] md:w-[140px] ${className || ""}`}
       initial="hidden"
       animate="visible"
     >
       <motion.path
         d="M1 10.9419C46 4.94194 159.5 0.441897 251 7.38386"
-        stroke="#009C60"
+        stroke="#09A293"
         strokeWidth="6"
         variants={pathVariants}
       />

@@ -9,7 +9,7 @@ const SquareSections = () => {
       <ContainerDefault className="flex md:flex-row flex-col items-center h-auto md:h-[730px] gap-1">
         <div className="w-full flex flex-col h-full gap-1">
           <div className="flex items-center h-[178px] md:h-full group cursor-pointer gap-1">
-            <div className="w-1/2 h-full bg-[#009C60] text-base md:text-2xl font-medium p-6 md:p-10 flex">
+            <div className="w-1/2 h-full bg-[#09A293] text-base md:text-2xl font-medium p-6 md:p-10 flex">
               <button className="text-white flex items-center justify-between w-full mt-auto transition-transform duration-500 group-hover:-translate-y-4">
                 Para Inquilinos <ChevronRightIcon />
               </button>

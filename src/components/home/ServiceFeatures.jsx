@@ -14,10 +14,10 @@ const ServiceFeatures = () => {
       <ContainerDefault className="pt-6 md:pt-10 flex-col border-vertical  gap-20">
         <div className="w-full flex items-center justify-between px-6">
           <div className="flex-col max-w-[781px]">
-            <h2 className="text-[32px]  lg:text-5xl leading-[120%] tracking-[-1.1px]">
+            <h2 className="text-[32px]  leading-[120%] tracking-[-1.1px]">
               Quem vive, <b>compartilha</b>
             </h2>
-            <h2 className="text-[32px] lg:text-5xl leading-[120%] tracking-[-1.1px] mt-2 relative">
+            <h2 className="text-[32px] leading-[120%] tracking-[-1.1px] mt-2 relative">
               Quem quer viver,{" "}
               <b className="relative">
                 descobre

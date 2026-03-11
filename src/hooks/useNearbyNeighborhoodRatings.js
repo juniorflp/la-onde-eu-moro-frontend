@@ -8,16 +8,22 @@ import { useQuery } from "@tanstack/react-query";
  * @param {number} radius - Raio de busca em metros (padrão: 5000m = 5km)
  * @param {boolean} enabled - Se a query deve ser executada
  */
-export function useNearbyNeighborhoodRatings(latitude, longitude, radius = 5000, enabled = true) {
+export function useNearbyNeighborhoodRatings(
+  latitude,
+  longitude,
+  radius = 5000,
+  enabled = true,
+  limit = null,
+) {
   return useQuery({
-    queryKey: ["nearbyNeighborhoodRatings", latitude, longitude, radius],
+    queryKey: ["nearbyNeighborhoodRatings", latitude, longitude, radius, limit],
     queryFn: async () => {
       if (!latitude || !longitude) {
         throw new Error("Latitude e longitude são obrigatórios");
       }
 
       const response = await fetch(
-        `/api/nearby-condominiums?lat=${latitude}&lng=${longitude}&radius=${radius}`
+        `/api/nearby-condominiums?lat=${latitude}&lng=${longitude}&radius=${radius}`,
       );
 
       if (!response.ok) {
@@ -66,8 +72,8 @@ export function useNearbyNeighborhoodRatings(latitude, longitude, radius = 5000,
           rating: (data.ratings.reduce((sum, r) => sum + r, 0) / data.count).toFixed(1),
           condominiumCount: data.count,
         }))
-        .sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)) // Ordena por rating (maior primeiro)
-        .slice(0, 10); // Limita a 10 bairros
+        .sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
+        .slice(0, limit ?? 10);
 
       return neighborhoodRatings;
     },

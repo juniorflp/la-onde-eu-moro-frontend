@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       screens: {
         hero: "1250px", // Breakpoint personalizado para o componente Hero
+        "3xl": "1920px", // Breakpoint para telas 1920px
       },
       colors: {
         background: "var(--background)",

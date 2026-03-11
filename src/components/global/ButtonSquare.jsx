@@ -10,6 +10,10 @@ function ButtonSquare(
     variant === "secondary" ? "bg-secondary text-white hover:bg-secondary-dark" : "";
   const ghost = variant === "ghost" ? "bg-transparent text-primary hover:bg-[#09a29312]" : "";
   const white = variant === "white" ? "bg-white text-primary hover:bg-[#f0f0f0]" : "";
+  const outline =
+    variant === "outline"
+      ? "bg-transparent text-primary border border-primary hover:bg-[#09a29312]"
+      : "";
 
   return (
     <button
@@ -20,6 +24,7 @@ function ButtonSquare(
         secondary,
         ghost,
         white,
+        outline,
         className,
       )}
       disabled={disabled}

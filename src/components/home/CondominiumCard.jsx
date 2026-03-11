@@ -13,7 +13,7 @@ const CondominiumCard = ({
   href = "#",
 }) => {
   return (
-    <div className="w-full h-full flex flex-col rounded-xl overflow-hidden hover-card">
+    <div className="w-full h-full flex flex-col  overflow-hidden hover-card">
       <div className="h-[241px] w-full relative">
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent z-10 pointer-events-none"></div>
         <Image
@@ -44,7 +44,7 @@ const CondominiumCard = ({
           </Link>
         </p>
 
-        <Link href={href} className="font-semibold mt-2 underline">
+        <Link href={href} className="font-semibold mt-2 underline text-primary">
           {reviewsCount} depoimentos
         </Link>
       </div>

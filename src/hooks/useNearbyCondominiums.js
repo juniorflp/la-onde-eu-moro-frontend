@@ -7,16 +7,22 @@ import { useQuery } from "@tanstack/react-query";
  * @param {number} radius - Raio de busca em metros (padrão: 5000m = 5km)
  * @param {boolean} enabled - Se a query deve ser executada
  */
-export function useNearbyCondominiums(latitude, longitude, radius = 5000, enabled = true) {
+export function useNearbyCondominiums(
+  latitude,
+  longitude,
+  radius = 5000,
+  enabled = true,
+  limit = null,
+) {
   return useQuery({
-    queryKey: ["nearbyCondominiums", latitude, longitude, radius],
+    queryKey: ["nearbyCondominiums", latitude, longitude, radius, limit],
     queryFn: async () => {
       if (!latitude || !longitude) {
         throw new Error("Latitude e longitude são obrigatórios");
       }
 
       const response = await fetch(
-        `/api/nearby-condominiums?lat=${latitude}&lng=${longitude}&radius=${radius}`
+        `/api/nearby-condominiums?lat=${latitude}&lng=${longitude}&radius=${radius}`,
       );
 
       if (!response.ok) {
@@ -45,7 +51,7 @@ export function useNearbyCondominiums(latitude, longitude, radius = 5000, enable
         href: `https://www.google.com/maps/place/?q=place_id:${place.place_id}`,
       }));
 
-      return condominiums;
+      return limit ? condominiums.slice(0, limit) : condominiums;
     },
     enabled: enabled && !!latitude && !!longitude,
     staleTime: 10 * 60 * 1000, // 10 minutos

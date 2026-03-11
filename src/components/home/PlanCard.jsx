@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import ButtonSquare from "../global/ButtonSquare";
 import CheckIcon from "../icons/CheckIcon";
 
@@ -27,35 +28,39 @@ const PlanCard = ({
   className = "",
   isPopular = false,
 }) => {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <div
-      className={`flex flex-1 flex-col bg-white rounded-xl p-8 transition-all duration-300 h-auto md:h-[780px] min-w-[300px] border border-[#c2c2c2] hover:border-primary hover:bg-primary/5 hover-card ${className}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`group flex flex-1 flex-col bg-white border-vertical p-10 transition-all duration-300 h-auto md:h-auto min-w-[300px] hover:bg-primary/5  ${className}`}
     >
       <div className="flex items-center justify-between">
         {icon}
         {isPopular && (
-          <ButtonSquare variant="secondary" className="h-[36px] cursor-default">
+          <ButtonSquare variant="outline" className="h-[36px] cursor-default">
             Mais Popular
           </ButtonSquare>
         )}
       </div>
-      <h3 className="text-[24px] font-bold mt-4">{planName}</h3>
-      <p className="text-[14px] mt-2">{description}</p>
-      <div className="w-full h-[1px] bg-[#DDD] my-6" />
+      <h3 className="text-[24px] font-bold mt-8">{planName}</h3>
+      <p className="text-[14px] mt-4">{description}</p>
+      <div className="w-full h-[1px] bg-[#DDD] my-8" />
 
-      <h4 className="text-[24px] font-bold mt-4">
+      <h4 className="text-[24px] font-bold ">
         {price}
         {price !== "Grátis" && <span className="text-[#373737] text-base font-normal">/mês</span>}
       </h4>
       <p className="text-[14px] mt-2">{priceSubtext}</p>
 
-      <div className="w-full h-[1px] bg-[#DDD] my-6" />
+      <div className="w-full h-[1px] bg-[#DDD] my-8" />
 
-      <ButtonSquare variant="secondary" className="w-full">
+      <ButtonSquare variant={hovered ? "primary" : "outline"} className="w-full">
         {buttonLabel}
       </ButtonSquare>
 
-      <p className="font-bold mt-6">Incluído:</p>
+      <p className="font-bold mt-8">Incluído:</p>
 
       <ul className="list-none list-inside mt-2 flex flex-col gap-2 text-[14px] flex-1">
         {features.map((feature, index) => (
