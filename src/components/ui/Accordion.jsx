@@ -27,8 +27,8 @@ const Accordion = ({
         </div>
       </div>
       <div
-        className={`overflow-hidden transition-all duration-300 p-6 ${
-          isOpen ? "max-h-96 opacity-100 pb-4" : "p-0 max-h-0 opacity-0"
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? "max-h-96 opacity-100 p-6" : "p-0 max-h-0 opacity-0"
         }`}
       >
         <p className="text-gray-600">{answer}</p>
