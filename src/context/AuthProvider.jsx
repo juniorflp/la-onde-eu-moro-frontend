@@ -1,6 +1,5 @@
 "use client";
 
-import LoadingScreen from "@/components/ui/LoadingScreen";
 import api, { setAuthToken } from "@/utils/api";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
@@ -184,7 +183,8 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={contextValue}>
       {/* Exibe loading apenas no servidor e primeira renderização do cliente */}
-      {!isMounted && loading ? <LoadingScreen /> : children}
+      {/* {!isMounted && loading ? <LoadingScreen /> : children} */}
+      {children}
     </AuthContext.Provider>
   );
 };
