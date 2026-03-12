@@ -2,6 +2,8 @@
 
 # VS Code
 .vscode/mcp.json
+.vscode
+/vscode
 
 # dependencies
 /node_modules
